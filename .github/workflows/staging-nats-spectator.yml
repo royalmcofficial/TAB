@@ -25,11 +25,11 @@ jobs:
       - name: Build TAB plugin JAR
         run: |
           chmod +x gradlew
-          ./gradlew :jar:shadowJar --no-daemon --stacktrace
+          ./gradlew :velocity:shadowJar --no-daemon --no-configuration-cache --stacktrace
       - name: Upload staging TAB JAR
         uses: actions/upload-artifact@v4
         with:
           name: RoyalMC-TAB-NATS-spectator-fix-staging
-          path: jar/build/libs/TAB v*.jar
+          path: velocity/build/libs/TAB-velocity-*.jar
           if-no-files-found: error
           retention-days: 14
