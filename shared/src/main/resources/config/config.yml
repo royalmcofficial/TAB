@@ -243,7 +243,7 @@ mysql:
 proxy-support:
   enabled: true
   channel-name-suffix: "custom"
-  # Supported types: PLUGIN, REDIS, RABBITMQ
+  # Supported types: PLUGIN, REDIS, RABBITMQ, NATS
   type: PLUGIN
   plugin:
     # Compatible plugins: RedisBungee
@@ -254,6 +254,10 @@ proxy-support:
   rabbitmq:
     exchange: 'plugin'
     url: 'amqp://guest:guest@localhost:5672/%2F'
+  nats:
+    servers:
+      - 'nats://localhost:4222'
+    credentials-file: ''
 
 components:
   minimessage-support: true

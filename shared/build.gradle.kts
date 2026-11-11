@@ -14,6 +14,7 @@ dependencies {
         exclude("org.checkerframework", "checker-qual")
     }
     api("com.mysql:mysql-connector-j:9.6.0")
+    implementation("io.nats:jnats:2.26.3")
     compileOnlyApi("com.viaversion:viaversion-api:5.2.1")
     compileOnlyApi("io.netty:netty-all:4.1.90.Final")
     compileOnlyApi("net.luckperms:api:5.4")

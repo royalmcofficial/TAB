@@ -30,6 +30,7 @@ tasks {
             relocate("org.apache.commons.pool2", "me.neznamy.tab.libs.org.apache.commons.pool2")
             relocate("org.json", "me.neznamy.tab.libs.org.json")
             relocate("com.rabbitmq", "me.neznamy.tab.libs.com.rabbitmq")
+            relocate("io.nats", "me.neznamy.tab.libs.io.nats")
             relocate("com.saicone.delivery4j", "me.neznamy.tab.libs.com.saicone.delivery4j")
         }
     }

@@ -21,6 +21,7 @@ import me.neznamy.tab.shared.features.nametags.NameTag;
 import me.neznamy.tab.shared.features.pingspoof.PingSpoof;
 import me.neznamy.tab.shared.features.playerlist.PlayerList;
 import me.neznamy.tab.shared.features.playerlistobjective.YellowNumber;
+import me.neznamy.tab.shared.features.proxy.NatsProxySupport;
 import me.neznamy.tab.shared.features.proxy.ProxyMessengerSupport;
 import me.neznamy.tab.shared.features.proxy.ProxyPlayer;
 import me.neznamy.tab.shared.features.proxy.ProxySupport;
@@ -568,6 +569,10 @@ public class FeatureManager {
             } else if (configuration.getType().equalsIgnoreCase("RABBITMQ")) {
                 proxy = new ProxyMessengerSupport("RabbitMQ", configuration.getChannelName(),
                         () -> RabbitMQBroker.of(configuration.getRabbitmqUrl(), configuration.getRabbitmqExchange()));
+            }
+            else if (configuration.getType().equalsIgnoreCase("NATS")) {
+                proxy = new NatsProxySupport(configuration.getChannelName(),
+                        configuration.getNatsServers(), configuration.getNatsCredentialsFile());
             }
             if (proxy != null) TAB.getInstance().getFeatureManager().registerFeature(TabConstants.Feature.PROXY_SUPPORT, proxy);
         }
