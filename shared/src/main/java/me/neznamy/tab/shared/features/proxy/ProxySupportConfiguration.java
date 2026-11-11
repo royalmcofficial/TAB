@@ -7,6 +7,7 @@ import me.neznamy.tab.shared.config.file.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,6 +24,8 @@ public class ProxySupportConfiguration {
     @NotNull private final String redisUrl;
     @NotNull private final String rabbitmqExchange;
     @NotNull private final String rabbitmqUrl;
+    @NotNull private final List<String> natsServers;
+    @NotNull private final String natsCredentialsFile;
 
     /**
      * Returns instance of this class created from given configuration section. If there are
@@ -35,10 +38,10 @@ public class ProxySupportConfiguration {
     @NotNull
     public static ProxySupportConfiguration fromSection(@NotNull ConfigurationSection section) {
         // Check keys
-        section.checkForUnknownKey(Arrays.asList("enabled", "channel-name-suffix", "type", "plugin", "redis", "rabbitmq"));
+        section.checkForUnknownKey(Arrays.asList("enabled", "channel-name-suffix", "type", "plugin", "redis", "rabbitmq", "nats"));
 
         // Check type
-        List<String> supportedTypes = Arrays.asList("PLUGIN", "REDIS", "RABBITMQ");
+        List<String> supportedTypes = Arrays.asList("PLUGIN", "REDIS", "RABBITMQ", "NATS");
         String type = section.getString("type", "PLUGIN").toUpperCase();
         if (!supportedTypes.contains(type)) {
             section.startupWarn("Proxy support type \"" + type + "\" is not supported. Supported types are: " + String.join(", ", supportedTypes) + ". Defaulting to PLUGIN.");
@@ -57,6 +60,10 @@ public class ProxySupportConfiguration {
         String rabbitmqExchange = rabbitmq.getString("exchange", "plugin");
         String rabbitmqUrl = rabbitmq.getString("url", "amqp://guest:guest@localhost:5672/%2F");
 
+        ConfigurationSection nats = section.getConfigurationSection("nats");
+        List<String> natsServers = nats.getStringList("servers", Collections.singletonList("nats://localhost:4222"));
+        String natsCredentialsFile = nats.getString("credentials-file", "");
+
         return new ProxySupportConfiguration(
                 section,
                 type,
@@ -64,7 +71,9 @@ public class ProxySupportConfiguration {
                 pluginName,
                 redisUrl,
                 rabbitmqExchange,
-                rabbitmqUrl
+                rabbitmqUrl,
+                natsServers,
+                natsCredentialsFile
         );
     }
 }
