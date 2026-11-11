@@ -41,8 +41,8 @@ jobs:
             me/neznamy/tab/shared/features/globalplayerlist/GlobalPlayerList.class; do
             unzip -Z1 "$jar" | grep -Fxq "$class"
           done
-          unzip -p "$jar" config.yml | grep -q 'Supported types: PLUGIN, REDIS, RABBITMQ, NATS'
-          unzip -p "$jar" config.yml | grep -q 'credentials-file'
+          unzip -p "$jar" config/config.yml | grep -q 'Supported types: PLUGIN, REDIS, RABBITMQ, NATS'
+          unzip -p "$jar" config/config.yml | grep -q 'credentials-file'
           unzip -p "$jar" velocity-plugin.json | grep -q '"id":"tab"'
           ls -lh "$jar"
       - name: Upload staging TAB JAR
