@@ -108,7 +108,20 @@ public class ProxyPlayer {
      */
     @NotNull
     public TabList.Entry asEntry() {
-        return new TabList.Entry(uniqueId, nickname, skin, true, 0, 0, tabFormat == null ? null : tabFormat.getFormatComponent(), 0, true);
+        return asEntry(false);
+    }
+
+    /**
+     * Creates an entry for a remote player using GlobalPlayerList's selected mode.
+     * This only affects the tablist, not the player's real gamemode.
+     *
+     * @param asSpectator whether this remote entry should appear as spectator
+     * @return remote tablist entry
+     */
+    @NotNull
+    public TabList.Entry asEntry(boolean asSpectator) {
+        return new TabList.Entry(uniqueId, nickname, skin, true, 0, asSpectator ? 3 : 0,
+                tabFormat == null ? null : tabFormat.getFormatComponent(), 0, true);
     }
 
     /**
